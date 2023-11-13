@@ -38,3 +38,6 @@ def add_data(request):
 
 def cw(request):
     return render(request, 'cw.html')
+
+def lab(request):
+    return render(request, 'lab.html')
