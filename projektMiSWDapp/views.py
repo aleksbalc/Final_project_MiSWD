@@ -35,3 +35,6 @@ def add_data(request):
         'knapsack_form': knapsack_form,
         'assignment_form': assignment_form,
     })
+
+def cw(request):
+    return render(request, 'cw.html')
