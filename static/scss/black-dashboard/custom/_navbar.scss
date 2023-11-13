@@ -17,11 +17,13 @@
   }
 
   .navbar-wrapper {
+    padding-top: 10px;
     display: flex;
     align-items: center;
   }
 
   .navbar-text {
+    padding-top: 10;
     color: $white;
   }
 
