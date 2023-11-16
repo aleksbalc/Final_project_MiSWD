@@ -44,3 +44,6 @@ class AssignmentDataForm(ModelForm):
         if not re.match(regex, matrix):
             return False
         return True
+
+class KnapsackForm(forms.Form):
+   datasets = forms.ModelMultipleChoiceField(queryset=KnapsackData.objects.all())
