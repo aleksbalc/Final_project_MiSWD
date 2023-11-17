@@ -12,29 +12,21 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='DataSets',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('dataType', models.CharField(choices=[('knapsack', 'Knapsack'), ('assignment', 'Assignment'), ('optimization', 'Optimization')], max_length=20)),
-            ],
-        ),
-        migrations.CreateModel(
             name='KnapsackData',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
                 ('val', models.CharField(max_length=255)),
                 ('wt', models.CharField(max_length=255)),
-                ('W', models.IntegerField()),
-                ('dataset', models.OneToOneField(limit_choices_to={'dataType': 'knapsack'}, on_delete=django.db.models.deletion.CASCADE, to='projektMiSWDapp.datasets')),
+                ('W', models.IntegerField())
             ],
         ),
         migrations.CreateModel(
             name='AssignmentData',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('matrix', models.TextField()),
-                ('dataset', models.OneToOneField(limit_choices_to={'dataType': 'assignment'}, on_delete=django.db.models.deletion.CASCADE, to='projektMiSWDapp.datasets')),
+                ('name', models.CharField(max_length=255)),
+                ('matrix', models.TextField())
             ],
         ),
     ]
