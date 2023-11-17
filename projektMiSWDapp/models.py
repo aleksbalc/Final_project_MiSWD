@@ -11,4 +11,5 @@ class KnapsackData(models.Model):
 class AssignmentData(models.Model):
     name = models.CharField(max_length=100)
     matrix = models.TextField()  # Use TextField for longer sequences of data
+    n = models.IntegerField()
     

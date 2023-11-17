@@ -1,8 +1,17 @@
 import json
+import numpy as np
+
 from django.shortcuts import render, redirect
 from .models import KnapsackData, AssignmentData
 from django.http import HttpResponseRedirect
 from .forms import KnapsackDataForm, AssignmentDataForm, KnapsackForm
+from .solvingalgorithms import *
+
+class NpEncoder(json.JSONEncoder):
+   def default(self, obj):
+       if isinstance(obj, np.int32):
+           return int(obj)
+       return json.JSONEncoder.default(self, obj)
 
 def BASE(request):
     return render(request, 'index.html', {} )
@@ -77,3 +86,39 @@ def solve_knapsack(request):
 def knapsackresults(request, results):
  results = json.loads(results)
  return render(request, 'knapsackresults.html', {'results': results})
+
+
+
+def assignment(request):
+    datasets = AssignmentData.objects.all()
+    return render(request, 'assignment.html', {'datasets': datasets})
+
+def solve_assignment(request):
+ if request.method == 'POST':
+    selected_dataset_ids = request.POST.getlist('datasets')
+    selected_datasets = AssignmentData.objects.filter(pk__in=selected_dataset_ids)
+
+    results = []
+    for dataset in selected_datasets:
+        # Fetch the data from your model
+        dataset = AssignmentData.objects.get(name=dataset.name)
+
+        # Convert the matrix string into a list of integers
+        matrix_data = [int(i) for i in dataset.matrix.split()]
+
+        # Reshape the list into a matrix
+        matrix = np.array(matrix_data).reshape(dataset.n, dataset.n)
+        matrix_list = matrix.tolist()
+        # Perform assignment algorithm here and store the result in the results list
+        # For example, let's assume a simple calculation for demonstration purposes:
+        result_hun = hungarian_algorithm(matrix)
+        results.append((dataset.name, matrix_list, dataset.n, result_hun)) # Append a tuple of dataset name and result
+
+
+     # Serialize the results list and redirect to the results page with the calculated data
+    return redirect('assignmentresults', results = json.dumps(results))
+ return redirect('assignment')
+
+def assignmentresults(request, results):
+ results = json.loads(results)
+ return render(request, 'assignmentresults.html', {'results': results})

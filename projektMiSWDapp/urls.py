@@ -8,6 +8,8 @@ urlpatterns = [
     path('adddatacw/', views.adddatacw, name="adddatacw"),
     path('knapsack/', views.knapsack, name='knapsack'),
     path('solve_knapsack/', views.solve_knapsack, name='solve_knapsack'),
-    path('knapsackresults/<str:results>/', views.knapsackresults, name='knapsackresults')
-
+    path('knapsackresults/<str:results>/', views.knapsackresults, name='knapsackresults'),
+    path('assignment/', views.assignment, name="assignment"),
+    path('solve_assignment/', views.solve_assignment, name='solve_assignment'),
+    path('assignmentresults/<str:results>/', views.assignmentresults, name='assignmentresults')
 ]

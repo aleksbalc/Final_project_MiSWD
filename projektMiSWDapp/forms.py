@@ -31,12 +31,13 @@ class KnapsackDataForm(ModelForm):
 class AssignmentDataForm(ModelForm):
     class Meta:
         model = AssignmentData
-        fields = ['name', 'matrix']
+        fields = ['name', 'matrix', 'n']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'Nazwa zestawu danych'
         self.fields['matrix'].widget.attrs['placeholder'] = 'Macierz przyporządkowań'
+        self.fields['n'].widget.attrs['placeholder'] = 'Liczba pracowników i prac'
 
     def validate(self):
         matrix = self.cleaned_data['matrix']
