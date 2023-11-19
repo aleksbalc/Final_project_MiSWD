@@ -1,5 +1,74 @@
 import numpy as np
+import itertools
 import time
+
+# funcrions return 4 elements: max value, result list, execution time and time complexity
+
+# KNAPSACK PROBLEM ALGORITHMS
+def knapsackDynamic(val, wt, W):
+    n = min(len(wt), len(val))
+    start_time = time.time()
+
+    K = [[0 for x in range(W + 1)] for x in range(n + 1)]
+    included = [[False for x in range(W + 1)] for x in range(n + 1)]
+
+    for i in range(n + 1):
+        for w in range(W + 1):
+            if i == 0 or w == 0:
+                K[i][w] = 0
+                included[i][w] = False
+            elif wt[i - 1] <= w:
+                if val[i - 1] + K[i - 1][w - wt[i - 1]] > K[i - 1][w]:
+                    K[i][w] = val[i - 1] + K[i - 1][w - wt[i - 1]]
+                    included[i][w] = True
+                else:
+                    K[i][w] = K[i - 1][w]
+                    included[i][w] = False
+            else:
+                K[i][w] = K[i - 1][w]
+                included[i][w] = False
+
+
+    # Backtrack to retrieve the selected items
+    selected_items = []
+    current_capacity = W
+    current_item_index = n
+
+    while current_item_index > 0:
+        if included[current_item_index][current_capacity]:
+            selected_items.append(current_item_index - 1)
+            current_capacity -= wt[current_item_index - 1]
+        current_item_index -= 1
+
+    end_time = time.time()
+    exec_time = end_time - start_time
+    print(K)
+    print(K[n][W])
+    return int(K[n][W]), selected_items, exec_time, "O(n*W)"
+
+
+def knapsack_brute_force(val, wt, W):
+   n = min(len(wt), len(val))
+   best_value = 0
+   best_combination = []
+
+   start_time = time.time()
+
+   for r in range(1, n + 1):
+       for combination in itertools.combinations(range(n), r): # combinations function from Python's built-in itertools module generates all possible combinations of items.
+           total_weight = sum(wt[i] for i in combination)
+           total_value = sum(val[i] for i in combination)
+           if total_weight <= W and total_value > best_value:
+               best_value = total_value
+               best_combination = list(combination)
+
+   end_time = time.time()
+   execution_time = end_time - start_time
+   time_complexity = "O(2^n)"
+
+   return best_value, best_combination, execution_time, time_complexity
+
+# ASSIGNMENT PROBLEM ALGORITHMS
 
 
 def min_zero_row(zero_mat, mark_zero):
@@ -133,4 +202,4 @@ def hungarian_algorithm(mat):
         ans_mat[pos[i][0], pos[i][1]] = 1 if mat[pos[i][0], pos[i][1]] != 0 else 0
     end_time = time.time()
     exec_time = end_time - start_time
-    return int(total), ans_mat.tolist(), exec_time, "(n^3)"
+    return int(total), ans_mat.tolist(), exec_time, "O(n^3)"

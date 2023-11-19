@@ -74,10 +74,12 @@ def solve_knapsack(request):
          wt = [int(w) for w in dataset.wt.split(' ')] # Convert wt string to list of integers
          val = [int(v) for v in dataset.val.split(' ')] # Convert val string to list of integers
 
+         n = min(len(wt), len(val))
          # Perform knapsack algorithm here and store the result in the results list
          # For example, let's assume a simple calculation for demonstration purposes:
-         result = W
-         results.append((dataset.name, result)) # Append a tuple of dataset name and result
+         result_dyn = knapsackDynamic(val, wt, W)
+         result_bru = knapsack_brute_force(val, wt, W)
+         results.append((dataset.name, int(W), wt, val, list(range(n)), result_dyn, result_bru)) # Append a tuple of dataset name and result
 
      # Serialize the results list and redirect to the results page with the calculated data
      return redirect('knapsackresults', results = json.dumps(results))
