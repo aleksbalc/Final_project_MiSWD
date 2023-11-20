@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="content">
-    {% for name, W, wt, val, N, result_dyn, result_bru in results %}
+    {% for name, W, wt, val, N, result_bru, result_bnb, result_dyn in results %}
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-chart">
@@ -51,6 +51,18 @@
                     <h4>Selected items: {{ result_dyn.1 }}</h4>
                     <h4>Execution Time: {{ result_dyn.2 }}</h4>
                     <h4>Complexity: {{ result_dyn.3 }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Metoda podziału i ograniczeń </h3>
+                    <br>
+                    <h4>Max Value: {{ result_bnb.0 }}</h4>
+                    <h4>Selected items: {{ result_bnb.1 }}</h4>
+                    <h4>Execution Time: {{ result_bnb.2 }}</h4>
+                    <h4>Complexity: {{ result_bnb.3 }}</h4>
                 </div>
             </div>
         </div>

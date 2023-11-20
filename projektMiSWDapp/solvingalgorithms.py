@@ -28,7 +28,6 @@ def knapsackDynamic(val, wt, W):
                 K[i][w] = K[i - 1][w]
                 included[i][w] = False
 
-
     # Backtrack to retrieve the selected items
     selected_items = []
     current_capacity = W
@@ -42,8 +41,7 @@ def knapsackDynamic(val, wt, W):
 
     end_time = time.time()
     exec_time = end_time - start_time
-    print(K)
-    print(K[n][W])
+    selected_items = sorted(selected_items)
     return int(K[n][W]), selected_items, exec_time, "O(n*W)"
 
 
@@ -65,8 +63,123 @@ def knapsack_brute_force(val, wt, W):
    end_time = time.time()
    execution_time = end_time - start_time
    time_complexity = "O(2^n)"
-
+   best_combination = sorted(best_combination)
    return best_value, best_combination, execution_time, time_complexity
+
+class Priority_Queue:
+    def __init__(self):
+        self.pqueue = []
+        self.length = 0
+
+    def insert(self, node, val, wt, W, maxprofit):
+        node.bound = get_bound(node, val, wt, W)
+        if node.bound > maxprofit:  # Only insert if potential for better solution
+            i = 0
+            while i < len(self.pqueue):
+                if self.pqueue[i].bound > node.bound:
+                    break
+                i += 1
+            self.pqueue.insert(i, node)
+            self.length += 1
+
+    def remove(self):
+        try:
+            result = self.pqueue.pop()
+            self.length -= 1
+        except:
+            print("Priority queue is empty, cannot pop from empty list.")
+        else:
+            return result
+
+
+class Node:
+    def __init__(self, level, profit, weight):
+        self.level = level
+        self.profit = profit
+        self.weight = weight
+        self.items = []
+
+
+def get_bound(node, val, wt, W):
+    if node.weight >= W:
+        return 0
+    else:
+        result = node.profit
+        j = node.level + 1
+        totweight = node.weight
+        while j <= len(val) - 1 and totweight + wt[j] <= W:
+            totweight = totweight + wt[j]
+            result = result + val[j]
+            j += 1
+        k = j
+        if k <= len(val) - 1:
+            result = result + (W - totweight) * (val[k] / wt[k])
+        return result
+
+
+def knapsackBnB(val, wt, W):
+ start_time = time.time()
+ nodes_generated = 0
+ pq = Priority_Queue()
+
+ v = Node(-1, 0, 0) # v initialized to be the root with level = 0, profit = $0, weight = 0
+ nodes_generated+=1
+ maxprofit = 0 # maxprofit initialized to $0
+ v.bound = get_bound(v, val, wt, W)
+
+ pq.insert(v, val, wt, W, maxprofit)
+
+ while pq.length != 0:
+     v = pq.remove() #remove node with best bound
+
+     if v.bound > maxprofit: #check if node is still promising
+         #set u to the child that includes the next item
+         u = Node(0, 0, 0)
+         nodes_generated+=1
+         u.level = v.level + 1
+         u.profit = v.profit + val[u.level]
+         u.weight = v.weight + wt[u.level]
+         #take v's list and add u's list
+         u.items = v.items.copy()
+         u.items.append(u.level) # adds next item
+         if u.weight <= W and u.profit > maxprofit:
+             #update maxprofit
+             maxprofit = u.profit
+             bestitems = u.items
+         u.bound = get_bound(u, val, wt, W)
+         if u.bound > maxprofit:
+             pq.insert(u, val, wt, W, maxprofit)
+     #set u to the child that does not include the next item
+     u2 = Node(u.level, v.profit, v.weight)
+     nodes_generated+=1
+     u2.bound = get_bound(u2, val, wt, W)
+     u2.items = v.items.copy()
+     if u2.bound > maxprofit:
+         pq.insert(u2, val, wt, W, maxprofit)
+     end_time = time.time()
+     exec_time = end_time - start_time
+    
+ return maxprofit, bestitems, exec_time, "Od O(N) do O(2^N)"
+
+def knapsackBnB_sorted(val, wt, W):
+    # This function helps in optimizing the execution time of the BnB algorithm
+    combined = list(zip(range(len(val)), val, wt, [v / w for v, w in zip(val, wt)], [0] * len(val)))
+    print(f"combined: {combined}")
+    # Sort the list of tuples in descending order based on the value/weight ratio
+    sorted_combined = sorted(combined, key=lambda x: x[3], reverse=True)
+
+
+    # Update the last element of each tuple to be its index in the sorted list
+    for i, tup in enumerate(sorted_combined):
+        sorted_combined[i] = tup[:-1] + (i,)
+    print(f"sorted_combined: {sorted_combined}")
+    new_val = [tup[1] for tup in sorted_combined]
+    new_wt = [tup[2] for tup in sorted_combined]
+
+    maxprofit, indexes, exec_time, message = knapsackBnB(new_val, new_wt, W)
+    first_elements = sorted([sorted_combined[i][0] for i in indexes])
+    return maxprofit, first_elements, exec_time, message
+
 
 # ASSIGNMENT PROBLEM ALGORITHMS
 
