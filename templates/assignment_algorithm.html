@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Wybierz jakim sposobem chcesz rozwiązywać zadania </h3>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <a href="/assignment">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-header"> Wszystkie na raz </h4>
+                        <br>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3">
+            <a href="/assignment_hungarian">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-header"> Metoda Węgierska </h4>
+                        <br>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3">
+            <a href="/assignment_brute">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-header"> Bruteforce </h4>
+                        <br>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -305,7 +305,7 @@ def hungarian_algorithm_supp(profit_matrix):
     return ans_pos
 
 
-def hungarian_algorithm(mat):
+def assignment_hungarian_algorithm(mat):
     start_time = time.time()
     pos = hungarian_algorithm_supp(mat)
     total = 0
@@ -316,3 +316,30 @@ def hungarian_algorithm(mat):
     end_time = time.time()
     exec_time = end_time - start_time
     return int(total), ans_mat.tolist(), exec_time, "O(n^3)"
+
+
+def assignment_brute_force(cost_matrix):
+    start_time = time.time()
+    n = len(cost_matrix)
+    all_assignments = np.array(list(itertools.permutations(range(n))))
+
+    best_assignment = None
+    best_result = float('-inf')
+
+    for assignment in all_assignments:
+        result = 0
+        for i, j in enumerate(assignment):
+            result += cost_matrix[i, j]
+
+        if result > best_result:
+            best_result = result
+            best_assignment = assignment
+
+    assignment_matrix = np.zeros((n, n))
+    for i, j in enumerate(best_assignment):
+        assignment_matrix[i, j] = 1
+
+    end_time = time.time()
+    exec_time = end_time - start_time
+
+    return int(best_result), assignment_matrix.tolist(), exec_time, "O(n!)"
