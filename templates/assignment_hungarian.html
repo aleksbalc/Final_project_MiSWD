@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Projekt ćwiczenia </h3>
+                    <br>
+                    <form method="post" action="{% url 'solve_assignment_hun' %}">
+                        {% csrf_token %}
+                        <label for="datasets">Select datasets:</label>
+                        <select name="datasets" multiple>
+                            {% for dataset in datasets %}
+                            <option value="{{ dataset.id }}">{{ dataset.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Solve</button>
+                        <br>
+                        <br>
+                        <h5 class="card-header"> Podpowiedź: przytrzymaj CTRL żeby zaznaczyć kilka. Przytrzymaj shift
+                            żeby zaznaczyć wszystkie od jednego zaznaczenia do drugiego. </h5>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

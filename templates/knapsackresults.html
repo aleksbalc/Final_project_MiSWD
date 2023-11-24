@@ -1,0 +1,86 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="content">
+    {% for name, W, wt, val, N, result_bru, result_bnb, result_dyn in results %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h2 class="card-header"> Zestaw danych {{name}} </h2>
+                    <br>
+                    <h4 class="card-header">Pojemność plecaka: {{ W }}</h4>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <td>Numbers of items</td>
+                            {% for i in N %}
+                            <td>{{ i }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Weights</td>
+                            {% for weight in wt %}
+                            <td>{{ weight }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Values</td>
+                            {% for value in val %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+
+                        <br>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Programowanie dynamiczne </h3>
+                    <br>
+                    <h4>Max Value: {{ result_dyn.0 }}</h4>
+                    <h4>Selected items: {{ result_dyn.1 }}</h4>
+                    <h4>Execution Time: {{ result_dyn.2 }}</h4>
+                    <h4>Complexity: {{ result_dyn.3 }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Metoda podziału i ograniczeń </h3>
+                    <br>
+                    <h4>Max Value: {{ result_bnb.0 }}</h4>
+                    <h4>Selected items: {{ result_bnb.1 }}</h4>
+                    <h4>Execution Time: {{ result_bnb.2 }}</h4>
+                    <h4>Complexity: {{ result_bnb.3 }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> Metoda przeglądu zupełnego </h3>
+                    <br>
+                    <h4>Max Value: {{ result_bru.0 }}</h4>
+                    <h4>Selected items: {{ result_bru.1 }}</h4>
+                    <h4>Execution Time: {{ result_bru.2 }}</h4>
+                    <h4>Complexity: {{ result_bru.3 }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

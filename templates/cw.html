@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h3 class="card-header"> Projekt ćwiczenia </h3>
+                        <h3 class="card-header"> </h3>
+                        <h4 class="card-title"> Celem ćwiczenia jest zaimplementowanie 3 wybranych metod klasycznych
+                            rozwiązywania zadań optymalizacji do rozwiązywania problemów klasycznych optymalizacji -
+                            zadania załadunku oraz zadania przydziału.
+                        </h4>
+                        <h4 class="card-title"> Następnie należy dokonać porównania metod w oparciu o co najmniej 3
+                            wybrane wskaźniki na podstawie co najmniej 10 zestawów danych dla każdego z problemów.
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="/adddatacw">
+                <div class="card card-chart">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h1 class="card-header" style="text-align: center;"> Dodaj dane </h1>
+                            <h3 class="card-header"> </h3>
+                            <h4 class="card-title"> Dodaj zestawy danych</h4>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="/knapsack_algorithm">
+                <div class="card card-chart">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h1 class="card-header" style="text-align: center;"> Zadanie załadunku </h1>
+                            <h3 class="card-header"> </h3>
+                            <h4 class="card-title"> Rozwiąż problem załadunku </h4>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="/assignment_algorithm">
+                <div class="card card-chart">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h1 class="card-header" style="text-align: center;"> Zadanie przydziału </h1>
+                            <h3 class="card-header"> </h3>
+                            <h4 class="card-title"> Rozwiąż problem przydziału </h4>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

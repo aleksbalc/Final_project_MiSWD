@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="content">
+    {% for name, matrix, N, result, method in results %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h2 class="card-header"> Zestaw danych: {{ name }} </h2>
+                    <br> <br>
+                    <table class="table">
+                        {% for row in matrix %}
+                        <tr>
+                            {% for value in row %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h3 class="card-header"> {{ method }} </h3>
+                    <br>
+                    <h4>Total Cost: {{ result.0 }}</h4>
+                    <h4>Assignment: {{ result.1 }}</h4>
+                    <h4>Execution Time: {{ result.2 }}</h4>
+                    <h4>Complexity: {{ result.3 }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% load static %}
+{% endblock stylesheets %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-chart">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h3 class="card-header"> Projekt laboratorium </h3>
+                        <h3 class="card-header"> </h3>
+                        <h4 class="card-title"> Celem ćwiczenia jest zaimplementowanie 3 wybranych metod heurystycznych
+                            do rozwiązania zadania optymalizacji.
+                        </h4>
+                        <h4 class="card-title"> Następnie należy dokonać porównania metod w oparciu o co najmniej 3
+                            wybrane wskaźniki na podstawie co najmniej 10 zestawów danych dla każdego z problemów.
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a href="/adddatalab">
+                <div class="card card-chart">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h1 class="card-header" style="text-align: center;"> Dodaj zadanie </h1>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <a href="/solvelab">
+                <div class="card card-chart">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h1 class="card-header" style="text-align: center;"> Rozwiąż zadanie </h1>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
